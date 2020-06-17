@@ -8,6 +8,12 @@ class PhoneInput extends React.Component {
 }
 
 export default class Form extends Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            isFormSend: false
+        }
+    }
     render() {
         return (
             <section className="form-section">
@@ -16,6 +22,16 @@ export default class Form extends Component {
                         <h1>
                             Форма с приветами
                         </h1>
+                        {
+                        this.state.isFormSend
+                        ?
+                        <div className='success'>
+                            <i class="fas fa-check-circle"></i>
+                            <h4>
+                                Ваше сообщение успешно отправлено
+                            </h4>
+                        </div>
+                        :
                         <form id='form'>
                             <div className="form-group mx-sm-3 mb-2 row">
                                 <div className="col-sm-6 ">
@@ -42,21 +58,24 @@ export default class Form extends Component {
                                 <label className="col-sm-5 col-form-label">Без сообщения форму отправлять бессмысленно</label>
                             </div>
                             <div className="form-group mx-sm-3 mb-2 row">
-                                <div className="form-check">
-                                    <div className="col-sm-6" style={{maxWidth: '80%'}}>
-                                        <input className="form-check-input" type="checkbox" id="blankCheckbox" required />
-                                        <label className="form-check-label" style={{color: 'black', marginLeft: '0px', marginTop: '5px'}}>Согласен с правилами обработки моих персональных данных</label>
-                                    </div>
+                                <div className="form-check col-sm-6">
+                                    <input className="form-check-input" type="checkbox" id="blankCheckbox" required />
+                                    <label className="form-check-label" style={{color: 'black', marginLeft: '0px', marginTop: '5px'}}>Согласен с правилами обработки моих персональных данных</label>
                                 </div>
                                 <label className="col-sm-5 col-form-label">Форма отправляется только, если отметка с согласием стоит</label>
                             </div>
                             <div className="form-group mx-sm-3 mb-2 row">
                                 <div className="col-sm-6">
-                                    <button className="btn" type="submit">Отправить сообщение</button>
+                                    <button className="btn" type="submit" onSubmit ={function (e) {
+                                        e.preventDefault()
+                                        this.setState({isFormSend:true});
+                                        return false
+                                        }}>Отправить сообщение</button>
                                 </div>
                                 <label className="col-sm-5 col-form-label">У кнопки несколько состояний. Яркой и синей она становится когда все нормально и форму можно отправлять.</label>
                             </div>
                         </form>
+                        }
                     </div>
                 </div>
             </section>
